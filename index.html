@@ -458,16 +458,16 @@
 
       // Moyennes des UE
       // UEF : (MDF coeff 3, CTM coeff 2)
-      const moy_uef = (note_mdf * 3 + note_ctm * 2) / 5;
+      const moy_uef = (note_mdf * 3 + note_ctm * 3) / 6;
       // UEF1 : RDM coeff2, SM coeff2, MAT coeff2 (total 6)
       const moy_uef1 = (note_rdm * 2 + note_sm * 2 + note_mat * 2) / 6;
       // UEM : MM coeff2, Ananum coeff2, CAO coeff2 (total 6)
-      const moy_uem = (note_mm * 2 + note_ananum * 2 + note_cao * 2) / 6;
+      const moy_uem = (note_mm * 2 + note_ananum * 2 + note_cao * 1) / 5;
       // UET : TIC coeff2 (sur 2)
       const moy_uet = (note_tic * 2) / 2;
 
       // Crédits: UEF=5, UEF1=6, UEM=6, UET=2 → total 19
-      const moyenne_semestre = (moy_uef * 5 + moy_uef1 * 6 + moy_uem * 6 + moy_uet * 2) / 19;
+      const moyenne_semestre = (moy_uef * 6 + moy_uef1 * 6 + moy_uem * 5 + moy_uet * 2) / 19;
 
       // Format final à 2 décimales
       const moyenneFixed = moyenne_semestre.toFixed(2);
