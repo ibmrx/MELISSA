@@ -1,518 +1,206 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Melissa Maouche · Calculatrice de moyenne semestrielle</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: system-ui, 'Segoe UI', 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Congratulations Melissa!</title>
+
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family: 'Arial', sans-serif;
     }
 
-    body {
-      background: linear-gradient(145deg, #e0eafc 0%, #f1f3f9 100%);
-      min-height: 100vh;
-      padding: 2rem 1.5rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    body{
+        overflow:hidden;
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:linear-gradient(135deg,#ff4e50,#fc913a,#f9d423,#00c9ff,#92fe9d);
+        background-size:400% 400%;
+        animation:gradient 10s ease infinite;
+        color:white;
     }
 
-    /* Carte principale */
-    .glass-card {
-      max-width: 1400px;
-      width: 100%;
-      background: rgba(255, 255, 255, 0.94);
-      backdrop-filter: blur(0px);
-      border-radius: 2rem;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 6px 12px rgba(0, 0, 0, 0.05);
-      overflow: hidden;
-      transition: all 0.2s ease;
+    @keyframes gradient{
+        0%{background-position:0% 50%;}
+        50%{background-position:100% 50%;}
+        100%{background-position:0% 50%;}
     }
 
-    /* En-tête doux */
-    .hero {
-      background: linear-gradient(135deg, #1e2b3c, #0f1a24);
-      padding: 1.5rem 2rem;
-      text-align: center;
-      color: white;
+    .card{
+        text-align:center;
+        background:rgba(255,255,255,0.12);
+        backdrop-filter:blur(15px);
+        padding:50px 40px;
+        border-radius:30px;
+        box-shadow:0 20px 50px rgba(0,0,0,.3);
+        animation:float 3s ease-in-out infinite;
+        z-index:2;
     }
 
-    .hero h1 {
-      font-size: 2rem;
-      font-weight: 600;
-      letter-spacing: -0.3px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
+    @keyframes float{
+        0%,100%{
+            transform:translateY(0);
+        }
+        50%{
+            transform:translateY(-10px);
+        }
     }
 
-    .hero h1 span {
-      background: #ffd966;
-      color: #1e2b3c;
-      font-size: 1.2rem;
-      font-weight: 500;
-      padding: 0.2rem 0.9rem;
-      border-radius: 60px;
+    h1{
+        font-size:4rem;
+        text-transform:uppercase;
+        text-shadow:
+            0 0 10px #fff,
+            0 0 20px #fff,
+            0 0 40px gold,
+            0 0 80px gold;
+        animation:pulse 2s infinite;
     }
 
-    .hero p {
-      margin-top: 0.5rem;
-      opacity: 0.85;
-      font-weight: 400;
-      font-size: 0.95rem;
+    @keyframes pulse{
+        0%,100%{
+            transform:scale(1);
+        }
+        50%{
+            transform:scale(1.05);
+        }
     }
 
-    /* Grille des modules */
-    .modules-grid {
-      padding: 2rem 2rem 1rem 2rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.6rem;
+    .name{
+        color:#ffe600;
     }
 
-    /* Carte module */
-    .module-card {
-      background: white;
-      border-radius: 1.5rem;
-      padding: 1rem 1.2rem 1.2rem 1.2rem;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.03);
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      transition: all 0.2s;
+    .score{
+        font-size:2.8rem;
+        margin:25px 0;
+        font-weight:bold;
     }
 
-    .module-card:hover {
-      border-color: #cbd5e1;
-      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.05);
+    p{
+        font-size:1.4rem;
+        line-height:1.6;
     }
 
-    .module-title {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: #0b2b3b;
-      border-left: 5px solid #3b82f6;
-      padding-left: 12px;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-      flex-wrap: wrap;
+    .emoji{
+        font-size:3rem;
+        margin-top:25px;
+        animation:bounce 1s infinite alternate;
     }
 
-    .module-code {
-      font-weight: 500;
-      font-size: 0.7rem;
-      background: #eef2ff;
-      padding: 2px 8px;
-      border-radius: 30px;
-      color: #1e40af;
+    @keyframes bounce{
+        from{
+            transform:translateY(0);
+        }
+        to{
+            transform:translateY(-15px);
+        }
     }
 
-    .input-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin: 12px 0;
+    canvas{
+        position:fixed;
+        top:0;
+        left:0;
+        pointer-events:none;
     }
-
-    .input-field {
-      flex: 1;
-      min-width: 70px;
-    }
-
-    .input-field label {
-      display: block;
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: #4b5563;
-      margin-bottom: 4px;
-    }
-
-    .input-field input {
-      width: 100%;
-      padding: 8px 10px;
-      border-radius: 14px;
-      border: 1.5px solid #e2e8f0;
-      background: #fefefe;
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: all 0.2s;
-    }
-
-    .input-field input:focus {
-      outline: none;
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
-    }
-
-    /* petits messages de pondération */
-    .weight-hint {
-      font-size: 0.65rem;
-      color: #5b6e8c;
-      margin-top: 6px;
-      text-align: right;
-      border-top: 1px dashed #edf2f7;
-      padding-top: 6px;
-    }
-
-    /* bouton et résultat */
-    .action-area {
-      padding: 0rem 2rem 2rem 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.2rem;
-    }
-
-    .calculate-btn {
-      background: #0f2b38;
-      border: none;
-      padding: 14px 28px;
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: white;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: 0.2s;
-      width: 260px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .calculate-btn:hover {
-      background: #1f4e6e;
-      transform: scale(1.01);
-    }
-
-    .result-card {
-      background: #f8fafc;
-      border-radius: 2rem;
-      padding: 1rem 2rem;
-      width: 100%;
-      text-align: center;
-      border: 1px solid #e2edf7;
-    }
-
-    .result-text {
-      font-size: 1.9rem;
-      font-weight: 800;
-      color: #0c4a6e;
-      letter-spacing: -0.3px;
-    }
-
-    .emoji-reaction {
-      font-size: 2rem;
-      margin-top: 8px;
-      font-weight: normal;
-    }
-
-    footer {
-      background: #f1f5f9;
-      text-align: center;
-      font-size: 0.7rem;
-      padding: 1rem;
-      color: #475569;
-      border-top: 1px solid #e2edf2;
-    }
-
-    @media (max-width: 720px) {
-      body {
-        padding: 1rem;
-      }
-      .modules-grid {
-        padding: 1.2rem;
-        gap: 1rem;
-      }
-      .hero h1 {
-        font-size: 1.5rem;
-      }
-      .result-text {
-        font-size: 1.5rem;
-      }
-    }
-  </style>
+</style>
 </head>
 <body>
-<div class="glass-card">
-  <div class="hero">
-    <h1>
-      📘 Melissa Maouche moyenne
-      <span>Semestre</span>
-    </h1>
-    <p>Saisissez vos notes (sur 20) — coefficients intégrés (TD/TP/Examen)</p>
-  </div>
 
-  <form id="semesterForm">
-    <div class="modules-grid">
-      <!-- CTM : Chimie Organique -->
-      <div class="module-card">
-        <div class="module-title">🧪 CTM <span class="module-code">chimie organique</span></div>
-        <div class="input-group">
-          <div class="input-field"><label>📖 TD (20%)</label><input type="number" step="any" id="ctm_td" placeholder="0-20"></div>
-          <div class="input-field"><label>🔬 TP (20%)</label><input type="number" step="any" id="ctm_tp" placeholder="0-20"></div>
-          <div class="input-field"><label>✍️ Examen (60%)</label><input type="number" step="any" id="ctm_exam" placeholder="0-20"></div>
-        </div>
-        <div class="weight-hint">coeff UEF : 3 (moyenne pondérée)</div>
-      </div>
+<canvas id="confetti"></canvas>
 
-      <!-- MDF : Mécanique des fluides -->
-      <div class="module-card">
-        <div class="module-title">💧 MDF <span class="module-code">mecanique des fluides</span></div>
-        <div class="input-group">
-          <div class="input-field"><label>📖 TD (20%)</label><input type="number" step="any" id="mdf_td" placeholder="0-20"></div>
-          <div class="input-field"><label>🔬 TP (20%)</label><input type="number" step="any" id="mdf_tp" placeholder="0-20"></div>
-          <div class="input-field"><label>✍️ Examen (60%)</label><input type="number" step="any" id="mdf_exam" placeholder="0-20"></div>
-        </div>
-        <div class="weight-hint">coeff UEF : 3</div>
-      </div>
+<div class="card">
+    <h1>🎉 Congratulations <span class="name">Melissa</span>! 🎉</h1>
 
-      <!-- RDM : Chimie minérale (texte: chimie meneral) -->
-      <div class="module-card">
-        <div class="module-title">⚛️ RDM <span class="module-code">chimie minerale</span></div>
-        <div class="input-group">
-          <div class="input-field"><label>📖 TD (40%)</label><input type="number" step="any" id="rdm_td" placeholder="0-20"></div>
-          <div class="input-field"><label>✍️ Examen (60%)</label><input type="number" step="any" id="rdm_exam" placeholder="0-20"></div>
-        </div>
-        <div class="weight-hint">coeff UEF1 : 2</div>
-      </div>
-
-      <!-- SM : électronique fondamentale -->
-      <div class="module-card">
-        <div class="module-title">🔌 SM <span class="module-code">electronique fondamental</span></div>
-        <div class="input-group">
-          <div class="input-field"><label>📖 TD (40%)</label><input type="number" step="any" id="sm_td" placeholder="0-20"></div>
-          <div class="input-field"><label>✍️ Examen (60%)</label><input type="number" step="any" id="sm_exam" placeholder="0-20"></div>
-        </div>
-        <div class="weight-hint">coeff UEF1 : 2</div>
-      </div>
-
-      <!-- MAT : chimie des solutions -->
-      <div class="module-card">
-        <div class="module-title">🧴 MAT <span class="module-code">chimie des solutions</span></div>
-        <div class="input-group">
-          <div class="input-field"><label>📖 TD (40%)</label><input type="number" step="any" id="mat_td" placeholder="0-20"></div>
-          <div class="input-field"><label>✍️ Examen (60%)</label><input type="number" step="any" id="mat_exam" placeholder="0-20"></div>
-        </div>
-        <div class="weight-hint">coeff UEF1 : 2</div>
-      </div>
-
-      <!-- MM : mesure métrologie -->
-      <div class="module-card">
-        <div class="module-title">📏 MM <span class="module-code">mesure metrologie</span></div>
-        <div class="input-group">
-          <div class="input-field"><label>🔬 TP (40%)</label><input type="number" step="any" id="mm_tp" placeholder="0-20"></div>
-          <div class="input-field"><label>✍️ Examen (60%)</label><input type="number" step="any" id="mm_exam" placeholder="0-20"></div>
-        </div>
-        <div class="weight-hint">coeff UEM : 2</div>
-      </div>
-
-      <!-- CAO : dessin assisté par ordinateur -->
-      <div class="module-card">
-        <div class="module-title">🖥️ CAO <span class="module-code">dessine assiste par ordinateur</span></div>
-        <div class="input-group">
-          <div class="input-field"><label>🎨 TP (100%)</label><input type="number" step="any" id="cao_tp" placeholder="0-20"></div>
-        </div>
-        <div class="weight-hint">coeff UEM : 2 (note = TP)</div>
-      </div>
-
-      <!-- ANALYSE NUMERIQUE -->
-      <div class="module-card">
-        <div class="module-title">📊 Ananum <span class="module-code">analyse numerique</span></div>
-        <div class="input-group">
-          <div class="input-field"><label>🔬 TP (40%)</label><input type="number" step="any" id="ananum_tp" placeholder="0-20"></div>
-          <div class="input-field"><label>✍️ Examen (60%)</label><input type="number" step="any" id="ananum_exam" placeholder="0-20"></div>
-        </div>
-        <div class="weight-hint">coeff UEM : 2</div>
-      </div>
-
-      <!-- TIC : Techniques d'information -->
-      <div class="module-card">
-        <div class="module-title">💻 TIC <span class="module-code">technique d'information</span></div>
-        <div class="input-group">
-          <div class="input-field"><label>🔬 TP (40%)</label><input type="number" step="any" id="tic_tp" placeholder="0-20"></div>
-          <div class="input-field"><label>✍️ Examen (60%)</label><input type="number" step="any" id="tic_exam" placeholder="0-20"></div>
-        </div>
-        <div class="weight-hint">coeff UET : 2</div>
-      </div>
+    <div class="score">
+        🏆 Your Semester Average is <br>
+        <span style="font-size:4rem;">13 / 20</span>
     </div>
 
-    <div class="action-area">
-      <button type="button" class="calculate-btn" id="calcBtn">📐 CALCULER MA MOYENNE ✨</button>
-      <div class="result-card" id="resultCard">
-        <div class="result-text" id="result">— —</div>
-        <div class="emoji-reaction" id="emojiZone"></div>
-      </div>
+    <p>
+        You did it! ✨<br>
+        Your hard work, dedication, and perseverance paid off.
+    </p>
+
+    <div class="emoji">
+        🎓🎊🥳🎉🍾✨
     </div>
-  </form>
-  <footer>✅ Pondérations respectées : UEF(CTM:2, MDF:3), UEF1(3 modules coeff2), UEM(3 modules coeff2), UET coeff2 — total crédits 19</footer>
 </div>
 
 <script>
-  (function() {
-    // DOM elements
-    const form = document.getElementById('semesterForm');
-    const calcBtn = document.getElementById('calcBtn');
-    const resultDiv = document.getElementById('result');
-    const emojiZone = document.getElementById('emojiZone');
+const canvas = document.getElementById("confetti");
+const ctx = canvas.getContext("2d");
 
-    // Helper: get parsed float value from input ID, returns NaN if empty/invalid
-    function getValue(id) {
-      const el = document.getElementById(id);
-      if (!el) return NaN;
-      const val = el.value.trim();
-      if (val === '') return NaN;
-      const num = parseFloat(val);
-      return isNaN(num) ? NaN : num;
-    }
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-    // validation visuelle des champs number (border rouge)
-    function validateAllInputs() {
-      const allNumberInputs = document.querySelectorAll('#semesterForm input[type="number"]');
-      let allValid = true;
-      allNumberInputs.forEach(input => {
-        const val = input.value.trim();
-        if (val === '' || isNaN(parseFloat(val))) {
-          input.style.borderColor = '#e53e3e';
-          input.style.borderWidth = '2px';
-          allValid = false;
-        } else {
-          input.style.borderColor = '#e2e8f0';
-        }
-      });
-      return allValid;
-    }
+const pieces = [];
 
-    function computeAverage() {
-      // 1. validation globale
-      const isValid = validateAllInputs();
-      if (!isValid) {
-        alert('❗ Veuillez remplir tous les champs correctement (notes sur 20).');
-        resultDiv.innerText = '⚠️ Champs invalides';
-        emojiZone.innerHTML = '📛';
-        return;
-      }
-
-      // récupération des valeurs (parseFloat déjà géré par getValue mais on utilise getValue sécurisé)
-      const ctm_td = getValue('ctm_td');
-      const ctm_tp = getValue('ctm_tp');
-      const ctm_exam = getValue('ctm_exam');
-      const mdf_td = getValue('mdf_td');
-      const mdf_tp = getValue('mdf_tp');
-      const mdf_exam = getValue('mdf_exam');
-      const rdm_td = getValue('rdm_td');
-      const rdm_exam = getValue('rdm_exam');
-      const sm_td = getValue('sm_td');
-      const sm_exam = getValue('sm_exam');
-      const mat_td = getValue('mat_td');
-      const mat_exam = getValue('mat_exam');
-      const mm_tp = getValue('mm_tp');
-      const mm_exam = getValue('mm_exam');
-      const cao_tp = getValue('cao_tp');
-      const ananum_tp = getValue('ananum_tp');
-      const ananum_exam = getValue('ananum_exam');
-      const tic_tp = getValue('tic_tp');
-      const tic_exam = getValue('tic_exam');
-
-      // Vérification secondaire au cas où une valeur NaN passerait (sécurité)
-      const requiredValues = [ctm_td, ctm_tp, ctm_exam, mdf_td, mdf_tp, mdf_exam, rdm_td, rdm_exam,
-                              sm_td, sm_exam, mat_td, mat_exam, mm_tp, mm_exam, cao_tp, ananum_tp,
-                              ananum_exam, tic_tp, tic_exam];
-      if (requiredValues.some(v => isNaN(v))) {
-        alert("Certaines notes sont invalides. Vérifiez les champs (nombres uniquement).");
-        return;
-      }
-
-      // Calcul des notes modules (avec coeffs internes)
-      const note_ctm = (ctm_td * 0.2) + (ctm_tp * 0.2) + (ctm_exam * 0.6);
-      const note_mdf = (mdf_td * 0.2) + (mdf_tp * 0.2) + (mdf_exam * 0.6);
-      const note_rdm = (rdm_td * 0.4) + (rdm_exam * 0.6);
-      const note_sm  = (sm_td * 0.4) + (sm_exam * 0.6);
-      const note_mat = (mat_td * 0.4) + (mat_exam * 0.6);
-      const note_mm  = (mm_tp * 0.4) + (mm_exam * 0.6);
-      const note_cao = cao_tp;  // 100% TP
-      const note_ananum = (ananum_tp * 0.4) + (ananum_exam * 0.6);
-      const note_tic = (tic_tp * 0.4) + (tic_exam * 0.6);
-
-      // Vérifier que les notes sont dans [0,20] approximatif (alerte douce)
-      const allModuleNotes = [note_ctm, note_mdf, note_rdm, note_sm, note_mat, note_mm, note_cao, note_ananum, note_tic];
-      for (let n of allModuleNotes) {
-        if (n < 0 || n > 20) {
-          console.warn("Note hors intervalle détectée:", n);
-          // on continue sans bloquer, mais on peut prévenir
-          if (n > 20.1 || n < -0.1) {
-            alert("⚠️ Une ou plusieurs notes dépassent 20 ou sont négatives. Vérifiez vos saisies.");
-            return;
-          }
-        }
-      }
-
-      // Moyennes des UE
-      // UEF : (MDF coeff 3, CTM coeff 2)
-      const moy_uef = (note_mdf * 3 + note_ctm * 3) / 6;
-      // UEF1 : RDM coeff2, SM coeff2, MAT coeff2 (total 6)
-      const moy_uef1 = (note_rdm * 2 + note_sm * 2 + note_mat * 2) / 6;
-      // UEM : MM coeff2, Ananum coeff2, CAO coeff2 (total 6)
-      const moy_uem = (note_mm * 2 + note_ananum * 2 + note_cao * 1) / 5;
-      // UET : TIC coeff2 (sur 2)
-      const moy_uet = (note_tic * 2) / 2;
-
-      // Crédits: UEF=5, UEF1=6, UEM=6, UET=2 → total 19
-      const moyenne_semestre = (moy_uef * 6 + moy_uef1 * 6 + moy_uem * 5 + moy_uet * 2) / 19;
-
-      // Format final à 2 décimales
-      const moyenneFixed = moyenne_semestre.toFixed(2);
-      const moyenneNum = parseFloat(moyenneFixed);
-
-      // Afficher la moyenne avec emoji selon la consigne : entre 12.00 et 12.99 => crying emojis
-      let emojiString = '';
-      if (moyenneNum >= 12.00 && moyenneNum <= 12.99) {
-        emojiString = '😢😭😢 (moyenne juste limite, reste motivée !)';
-      } else if (moyenneNum >= 10 && moyenneNum < 12) {
-        emojiString = '😐📚 Peut mieux faire !';
-      } else if (moyenneNum >= 13 && moyenneNum < 16) {
-        emojiString = '👍🎉 Bien joué !';
-      } else if (moyenneNum >= 16 && moyenneNum <= 20) {
-        emojiString = '🏆✨ Excellent ! Félicitations ✨🏆';
-      } else if (moyenneNum < 10) {
-        emojiString = '💔📉 Nécessite des révisions... courage !';
-      } else {
-        emojiString = '🎓✔️ Semestre validé';
-      }
-
-      // Si la moyenne exacte entre 12 et 12.99, priorité à l'emoji pleureur
-      if (moyenneNum >= 12.00 && moyenneNum <= 12.99) {
-        emojiString = '😢😭💧 ' + emojiString + ' (moyenne serrée)';
-      }
-
-      resultDiv.innerText = `📊 ${moyenneFixed} / 20`;
-      emojiZone.innerHTML = emojiString;
-    }
-
-    // évènement principal
-    calcBtn.addEventListener('click', computeAverage);
-
-    // Optionnel: réinitialiser la bordure quand on commence à taper (pour UX)
-    const allInputs = document.querySelectorAll('#semesterForm input[type="number"]');
-    allInputs.forEach(input => {
-      input.addEventListener('input', function() {
-        if (this.value.trim() !== '' && !isNaN(parseFloat(this.value))) {
-          this.style.borderColor = '#e2e8f0';
-        } else {
-          this.style.borderColor = '#e53e3e';
-        }
-      });
+for(let i=0; i<250; i++){
+    pieces.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height - canvas.height,
+        r: Math.random() * 8 + 3,
+        d: Math.random() * 250,
+        color: `hsl(${Math.random()*360},100%,50%)`,
+        tilt: Math.random() * 10 - 10,
+        tiltAngle: 0,
+        tiltAngleIncremental: Math.random() * 0.07 + 0.05
     });
-  })();
+}
+
+function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    pieces.forEach(p => {
+        ctx.beginPath();
+        ctx.lineWidth = p.r;
+        ctx.strokeStyle = p.color;
+
+        ctx.moveTo(p.x + p.tilt + p.r/2, p.y);
+        ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r);
+
+        ctx.stroke();
+    });
+
+    update();
+}
+
+function update(){
+    pieces.forEach((p,index) => {
+        p.tiltAngle += p.tiltAngleIncremental;
+
+        p.y += (Math.cos(p.d) + 3 + p.r/2) / 2;
+        p.x += Math.sin(p.d);
+
+        p.tilt = Math.sin(p.tiltAngle) * 15;
+
+        if(p.y > canvas.height){
+            pieces[index] = {
+                ...p,
+                x: Math.random() * canvas.width,
+                y: -20
+            };
+        }
+    });
+}
+
+function animate(){
+    draw();
+    requestAnimationFrame(animate);
+}
+
+animate();
+
+window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
 </script>
+
 </body>
 </html>
