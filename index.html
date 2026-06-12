@@ -3,62 +3,91 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Congratulations Melissa!</title>
+<title>Congratulations Melissa 🎉</title>
 
 <style>
     *{
         margin:0;
         padding:0;
         box-sizing:border-box;
-        font-family: 'Arial', sans-serif;
+        font-family:Arial, Helvetica, sans-serif;
     }
 
     body{
+        min-height:100vh;
         overflow:hidden;
-        height:100vh;
         display:flex;
         justify-content:center;
         align-items:center;
-        background:linear-gradient(135deg,#ff4e50,#fc913a,#f9d423,#00c9ff,#92fe9d);
+        background:linear-gradient(-45deg,#ff4d6d,#ff9e00,#ffd60a,#4cc9f0,#7b2cbf);
         background-size:400% 400%;
-        animation:gradient 10s ease infinite;
-        color:white;
+        animation:bgMove 12s ease infinite;
+        padding:20px;
+        position:relative;
     }
 
-    @keyframes gradient{
+    @keyframes bgMove{
         0%{background-position:0% 50%;}
         50%{background-position:100% 50%;}
         100%{background-position:0% 50%;}
     }
 
-    .card{
-        text-align:center;
-        background:rgba(255,255,255,0.12);
-        backdrop-filter:blur(15px);
-        padding:50px 40px;
-        border-radius:30px;
-        box-shadow:0 20px 50px rgba(0,0,0,.3);
-        animation:float 3s ease-in-out infinite;
-        z-index:2;
+    /* Floating balloons */
+    .balloon{
+        position:absolute;
+        bottom:-150px;
+        font-size:50px;
+        animation:float linear infinite;
+        user-select:none;
     }
 
     @keyframes float{
+        from{
+            transform:translateY(0);
+        }
+        to{
+            transform:translateY(-130vh);
+        }
+    }
+
+    .card{
+        width:100%;
+        max-width:420px;
+        text-align:center;
+        background:rgba(255,255,255,0.15);
+        backdrop-filter:blur(20px);
+        -webkit-backdrop-filter:blur(20px);
+        border:1px solid rgba(255,255,255,.25);
+        border-radius:30px;
+        padding:35px 25px;
+        box-shadow:0 20px 50px rgba(0,0,0,.25);
+        z-index:2;
+        animation:cardFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes cardFloat{
         0%,100%{
             transform:translateY(0);
         }
         50%{
-            transform:translateY(-10px);
+            transform:translateY(-8px);
         }
     }
 
-    h1{
-        font-size:4rem;
-        text-transform:uppercase;
-        text-shadow:
-            0 0 10px #fff,
-            0 0 20px #fff,
-            0 0 40px gold,
-            0 0 80px gold;
+    .badge{
+        width:140px;
+        height:140px;
+        margin:20px auto;
+        border-radius:50%;
+        background:linear-gradient(135deg,#ffd700,#ffb700);
+        color:#fff;
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        box-shadow:
+            0 0 20px rgba(255,215,0,.7),
+            0 0 50px rgba(255,215,0,.5);
         animation:pulse 2s infinite;
     }
 
@@ -67,28 +96,45 @@
             transform:scale(1);
         }
         50%{
-            transform:scale(1.05);
+            transform:scale(1.08);
         }
+    }
+
+    .badge .score{
+        font-size:3rem;
+        font-weight:900;
+        line-height:1;
+    }
+
+    .badge small{
+        font-size:1rem;
+        letter-spacing:2px;
+    }
+
+    h1{
+        color:white;
+        font-size:2.3rem;
+        margin-bottom:10px;
+        text-shadow:
+            0 0 10px white,
+            0 0 20px rgba(255,255,255,.8);
     }
 
     .name{
         color:#ffe600;
     }
 
-    .score{
-        font-size:2.8rem;
-        margin:25px 0;
-        font-weight:bold;
-    }
-
-    p{
-        font-size:1.4rem;
-        line-height:1.6;
+    .subtitle{
+        color:white;
+        font-size:1.1rem;
+        line-height:1.7;
+        opacity:.95;
+        margin-bottom:25px;
     }
 
     .emoji{
-        font-size:3rem;
-        margin-top:25px;
+        font-size:2rem;
+        margin:20px 0;
         animation:bounce 1s infinite alternate;
     }
 
@@ -97,15 +143,57 @@
             transform:translateY(0);
         }
         to{
-            transform:translateY(-15px);
+            transform:translateY(-10px);
         }
+    }
+
+    button{
+        border:none;
+        background:white;
+        color:#ff4d6d;
+        padding:14px 28px;
+        border-radius:50px;
+        font-size:1rem;
+        font-weight:bold;
+        cursor:pointer;
+        transition:.3s;
+        box-shadow:0 10px 25px rgba(0,0,0,.2);
+    }
+
+    button:hover{
+        transform:translateY(-3px) scale(1.05);
     }
 
     canvas{
         position:fixed;
-        top:0;
-        left:0;
+        inset:0;
         pointer-events:none;
+        z-index:1;
+    }
+
+    /* Desktop */
+    @media (min-width: 768px){
+        .card{
+            max-width:520px;
+            padding:50px 40px;
+        }
+
+        h1{
+            font-size:3rem;
+        }
+
+        .subtitle{
+            font-size:1.25rem;
+        }
+
+        .badge{
+            width:170px;
+            height:170px;
+        }
+
+        .badge .score{
+            font-size:4rem;
+        }
     }
 </style>
 </head>
@@ -113,93 +201,106 @@
 
 <canvas id="confetti"></canvas>
 
-<div class="card">
-    <h1>🎉 Congratulations <span class="name">Melissa</span>! 🎉</h1>
+<!-- Balloons -->
+<div class="balloon" style="left:5%; animation-duration:14s;">🎈</div>
+<div class="balloon" style="left:18%; animation-duration:18s;">🎈</div>
+<div class="balloon" style="left:80%; animation-duration:15s;">🎈</div>
+<div class="balloon" style="left:92%; animation-duration:20s;">🎈</div>
 
-    <div class="score">
-        🏆 Your Semester Average is <br>
-        <span style="font-size:4rem;">13 / 20</span>
+<div class="card">
+    <h1>
+        🎉 Congratulations<br>
+        <span class="name">MELISSA</span> 🎉
+    </h1>
+
+    <div class="badge">
+        <div class="score">13</div>
+        <small>/ 20</small>
     </div>
 
-    <p>
-        You did it! ✨<br>
-        Your hard work, dedication, and perseverance paid off.
+    <p class="subtitle">
+        You achieved a semester average of
+        <strong>13/20</strong>!<br><br>
+        Your hard work, determination, and perseverance
+        made this success possible.
     </p>
 
     <div class="emoji">
-        🎓🎊🥳🎉🍾✨
+        🎓🏆🥳✨🎊
     </div>
+
+    <button onclick="burstConfetti()">
+        🎉 Celebrate Again!
+    </button>
 </div>
 
 <script>
 const canvas = document.getElementById("confetti");
 const ctx = canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+function resize(){
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+}
+resize();
+addEventListener("resize", resize);
 
-const pieces = [];
+let confetti = [];
 
-for(let i=0; i<250; i++){
-    pieces.push({
+function createPiece(extra = false){
+    return {
         x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height - canvas.height,
-        r: Math.random() * 8 + 3,
-        d: Math.random() * 250,
+        y: extra ? canvas.height/2 : Math.random() * -canvas.height,
+        size: Math.random() * 8 + 4,
+        speedY: Math.random() * 3 + 2,
+        speedX: Math.random() * 2 - 1,
         color: `hsl(${Math.random()*360},100%,50%)`,
-        tilt: Math.random() * 10 - 10,
-        tiltAngle: 0,
-        tiltAngleIncremental: Math.random() * 0.07 + 0.05
-    });
+        rotation: Math.random() * 360
+    };
 }
 
-function draw(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-
-    pieces.forEach(p => {
-        ctx.beginPath();
-        ctx.lineWidth = p.r;
-        ctx.strokeStyle = p.color;
-
-        ctx.moveTo(p.x + p.tilt + p.r/2, p.y);
-        ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r);
-
-        ctx.stroke();
-    });
-
-    update();
+for(let i=0;i<180;i++){
+    confetti.push(createPiece());
 }
 
-function update(){
-    pieces.forEach((p,index) => {
-        p.tiltAngle += p.tiltAngleIncremental;
-
-        p.y += (Math.cos(p.d) + 3 + p.r/2) / 2;
-        p.x += Math.sin(p.d);
-
-        p.tilt = Math.sin(p.tiltAngle) * 15;
-
-        if(p.y > canvas.height){
-            pieces[index] = {
-                ...p,
-                x: Math.random() * canvas.width,
-                y: -20
-            };
-        }
-    });
+function burstConfetti(){
+    for(let i=0;i<150;i++){
+        confetti.push(createPiece(true));
+    }
 }
 
 function animate(){
-    draw();
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    confetti.forEach((p,index)=>{
+        ctx.save();
+
+        ctx.translate(p.x,p.y);
+        ctx.rotate(p.rotation);
+
+        ctx.fillStyle = p.color;
+        ctx.fillRect(
+            -p.size/2,
+            -p.size/2,
+            p.size,
+            p.size
+        );
+
+        ctx.restore();
+
+        p.y += p.speedY;
+        p.x += p.speedX;
+        p.rotation += 0.05;
+
+        if(p.y > canvas.height + 20){
+            confetti[index] = createPiece();
+        }
+    });
+
     requestAnimationFrame(animate);
 }
 
 animate();
-
-window.addEventListener("resize", () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-});
 </script>
 
 </body>
